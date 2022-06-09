@@ -1,0 +1,34 @@
+class Dijsktra():
+    def __init__(self,graph):
+        self.G = graph
+        
+    def min_distance(self,dist,spt):
+        min = 1e7
+        min_index = 0
+        
+        for i in range(len(self.G)):
+            if dist[i]<min and spt[i] == False:
+                min = dist[i]
+                min_index = i
+        return min_index
+    
+    def printdist(self,dist):
+        for i in range(len(self.G)):
+            print(i,dist[i])
+    
+    def dijsktra(self,src):
+        dist = [1e7]*len(self.G)
+        dist[src] = 0
+        spt = [False]*len(self.G)
+        print(spt)
+        
+        for i in range(len(self.G)):
+            j = self.min_distance(dist,spt)
+            
+            spt[j] = True
+            for v in range(len(self.G)):
+                if (self.G[j][v] > 0 and spt[v] == False and dist[v] > dist[j] + self.G[j][v]): 
+                    dist[v] = dist[j] + self.G[j][v]
+            print(j,dist)
+    
+#         self.printdist(dist)
